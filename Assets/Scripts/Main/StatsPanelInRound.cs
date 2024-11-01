@@ -25,8 +25,8 @@ namespace Omnis.Playdough
             miss.text = Statistics.missCount.ToString();
             total.text = Statistics.OneRoundCount.ToString();
             accuracy.text = Statistics.Accuracy.ToString("F0") + "%";
-            avgTime.text = Statistics.averageTime.ToString("F2");
-            playedTime.text = Statistics.playedTime.ToString("F2");
+            avgTime.text = Statistics.averageTime.ToString("F2") + "s";
+            playedTime.text = Statistics.playedTime.ToString("F2") + "s";
 
             difficulty.text = Enum.GetName(typeof(Difficulty), GameSettings.difficulty);
             randomScale.text = GameSettings.RandomScale.ToString();

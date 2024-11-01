@@ -12,8 +12,8 @@ namespace Omnis.Playdough
             miss.text = Statistics.totalMissCount.ToString();
             total.text = Statistics.TotalCount.ToString();
             accuracy.text = Statistics.TotalAccuracy.ToString("F0") + "%";
-            avgTime.text = Statistics.totalAverageTime.ToString("F2");
-            playedTime.text = Statistics.totalPlayedTime.ToString("F2");
+            avgTime.text = Statistics.totalAverageTime.ToString("F2") + "s";
+            playedTime.text = Statistics.totalPlayedTime.ToString("F2") + "s";
         }
         #endregion
     }
