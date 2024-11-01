@@ -13,6 +13,9 @@ namespace Omnis.Playdough
 
         #region Fields
         private float countdown;
+        private float qualifiedRatioAbs;
+        private float perfectRatioAbs;
+        private float bonusMult;
         #endregion
 
         #region Interfaces
@@ -21,34 +24,87 @@ namespace Omnis.Playdough
             get => countdown;
             set
             {
-                countdown = Mathf.Clamp(value, 0f, 999f);
+                countdown = Mathf.Clamp(value, 0f, 1000f);
                 textCountdown.text = countdown.ToString("F2");
             }
         }
         #endregion
 
         #region Functions
+        private void SetQualifiedScore()
+        {
+            switch (GameSettings.difficulty)
+            {
+                case Difficulty.Easy:
+                    qualifiedRatioAbs = 0.15f;
+                    perfectRatioAbs = 0.05f;
+                    bonusMult = 1.5f;
+                    break;
+                default:
+                case Difficulty.Normal:
+                    qualifiedRatioAbs = 0.125f;
+                    perfectRatioAbs = 0.02f;
+                    bonusMult = 1f;
+                    break;
+                case Difficulty.Hard:
+                    qualifiedRatioAbs = 0.12f;
+                    perfectRatioAbs = 0.01f;
+                    bonusMult = 0.75f;
+                    break;
+            }
+        }
+
         private void SettleScore(float endAspectRatio)
         {
             float score;
-            if (endAspectRatio * startAspectRatio < 0f)
+            Color visualColor;
+
+            // Not even close.
+            if (Mathf.Abs(endAspectRatio) > Mathf.Abs(startAspectRatio))
+            {
+                score = -1f;
+                visualColor = Color.red;
+            }
+            // Too much.
+            else if (endAspectRatio * startAspectRatio < 0f)
             {
                 score = 0f;
-                SpawnPerfectPhantom(Color.yellow);
+                visualColor = Color.gray;
             }
-            else if (Mathf.Abs(endAspectRatio) > Mathf.Abs(startAspectRatio))
+            // Not qualified.
+            else if (Mathf.Abs(endAspectRatio) > qualifiedRatioAbs)
             {
-                score = -5f;
-                SpawnPerfectPhantom(Color.red);
+                score = 0f;
+                visualColor = Color.red;
             }
+            // Qualified.
+            else if (Mathf.Abs(endAspectRatio) > perfectRatioAbs)
+            {
+                var rawScore = (qualifiedRatioAbs - Mathf.Abs(endAspectRatio)) / qualifiedRatioAbs;
+                score = GameSettings.difficulty switch
+                {
+                    Difficulty.Easy => bonusMult * Mathf.Sqrt(rawScore),
+                    Difficulty.Normal => bonusMult * rawScore,
+                    Difficulty.Hard => bonusMult * rawScore,
+                    _ => bonusMult * rawScore,
+                };
+                visualColor = ColorTweaker.LerpFromColorToColor(ColorTweaker.orange, ColorTweaker.chartreuse, rawScore);
+            }
+            // Perfect.
             else
             {
-                score = Mathf.Lerp(0f, 1f, Mathf.Abs(startAspectRatio - endAspectRatio));
-                score = score * score * GameSettings.bonusMult;
-                SpawnPerfectPhantom(Color.green);
+                score = bonusMult;
+                visualColor = Color.green;
             }
+
+            // Settle the score.
             Countdown += score;
-            Instantiate(floatScoreTextPrefab, textCountdown.transform).GetComponent<FloatScoreText>().Score = score;
+
+            // Add visual Effects.
+            SpawnPerfectPhantom(visualColor);
+            var floatScore = Instantiate(floatScoreTextPrefab, textCountdown.transform).GetComponent<FloatScore>();
+            floatScore.Score = score;
+            floatScore.Color = visualColor;
         }
         #endregion
     }

@@ -73,6 +73,7 @@ namespace Omnis.Playdough
             base.Start();
             Countdown = 10f;
             crosshair.SetActive(GameSettings.EnableCrosshair);
+            SetQualifiedScore();
             SpawnPlaydough();
         }
 

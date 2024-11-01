@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Omnis.Playdough
 {
-    public class FloatScoreText : TTLMonoBehaviour
+    public class FloatScore : TTLMonoBehaviour
     {
         #region Serialized Fields
         [SerializeField] private Text floatText;
@@ -18,6 +18,10 @@ namespace Omnis.Playdough
         public float Score
         {
             set => floatText.text = value >= 0f ? "+" + value.ToString("F2") : value.ToString("F2");
+        }
+        public Color Color
+        {
+            set => floatText.color = value;
         }
         #endregion
 

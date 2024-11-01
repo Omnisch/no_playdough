@@ -11,8 +11,21 @@ namespace Omnis.Playdough
         #endregion
 
         #region Interfaces
-        public void StartGame() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainScene");
+        public int BonusMult
+        {
+            set
+            {
+                GameSettings.difficulty = value switch
+                {
+                    0 => Difficulty.Easy,
+                    1 => Difficulty.Normal,
+                    2 => Difficulty.Hard,
+                    _ => Difficulty.Default,
+                };
+            }
+        }
 
+        public void StartGame() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainScene");
         public void ToggleShapeToPool(string shapeName)
         {
             if (Enum.TryParse(typeof(PlaydoughShape), shapeName, out var result))
@@ -38,7 +51,7 @@ namespace Omnis.Playdough
             GameSettings.EnableCrosshair = false;
             GameSettings.EnablePhantoms = false;
             GameSettings.shapePool.Clear();
-            startButton.interactable = !IsShapePoolEmpty();
+            GameSettings.shapePool.Add(PlaydoughShape.Circle);
         }
         #endregion
     }

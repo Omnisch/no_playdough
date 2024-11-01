@@ -11,9 +11,17 @@ namespace Omnis.Playdough
         public static bool EnableCrosshair { get; set; }
         public static bool EnablePhantoms { get; set; }
 
-        public static float bonusMult;
+        public static Difficulty difficulty = Difficulty.Normal;
 
         public static List<PlaydoughShape> shapePool = new();
         public static PlaydoughShape GetRandomShapeFromPool() => shapePool[Random.Range(0, shapePool.Count)];
+    }
+
+    public enum Difficulty
+    {
+        Default,
+        Easy,
+        Normal,
+        Hard,
     }
 }
