@@ -2085,7 +2085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_IsOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -3026,9 +3026,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Don''t Play with
-
-    Playdough'
+  m_Text: Playdough Worker
 --- !u!222 &1449663862
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3779,7 +3777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_IsOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size

@@ -853,6 +853,8 @@ MonoBehaviour:
   playdoughPrefab: {fileID: 5513768340467951425, guid: b81ccdeb89ff4d04f9bb6656665e8772, type: 3}
   crosshair: {fileID: 1298265040}
   sensitivity: 2
+  slideInPosition: {x: 5, y: 0, z: 0}
+  slideOutPosition: {x: -5, y: 0, z: 0}
   textCountdown: {fileID: 123954092}
   floatScoreTextPrefab: {fileID: 8790804450088867982, guid: 7752825cdd4fa2f4d93e53dae5b98e6f, type: 3}
 --- !u!65 &1139128575

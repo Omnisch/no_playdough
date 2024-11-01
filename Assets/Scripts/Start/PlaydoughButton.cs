@@ -27,7 +27,7 @@ namespace Omnis.Playdough
             set
             {
                 base.Interactable = value;
-                if (value) playdough.Color = Color.black;
+                if (value) playdough.Color = ColorTweaker.appleBlack;
                 else playdough.Color = Color.gray;
             }
         }
@@ -72,7 +72,7 @@ namespace Omnis.Playdough
                 else
                 {
                     playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, Color.black, lerpSpeed);
+                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, lerpSpeed);
                 }
             }
         }

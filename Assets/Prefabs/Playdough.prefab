@@ -100,7 +100,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.18
+        value: 0.15
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -148,7 +148,7 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
 --- !u!114 &3464674988099169893
@@ -163,7 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b52acd21ea33174ca5849514e3f1d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerpSpeed: 0.1
   shape: 0
   scale: 1
   rotation: 0
+  position: {x: 0, y: 0, z: 0}
   aspectRatio: 0

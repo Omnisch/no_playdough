@@ -47,6 +47,12 @@ namespace Omnis
         #endregion
 
         #region Other colors
+        /// <summary>Softer white. RGBA is (0.96, 0.96, 0.97, 1).</summary>
+        public static Color appleWhite => new(0.96f, 0.96f, 0.97f, 1f);
+
+        /// <summary>Softer black. RGBA is (0.11, 0.11, 0.12, 1).</summary>
+        public static Color appleBlack => new(0.11f, 0.11f, 0.12f, 1f);
+
         /// <summary>Gold. RGBA is (1, 0.84, 0, 1).</summary>
         public static Color gold => new(1f, 0.84f, 0f, 1f);
 
@@ -68,6 +74,13 @@ namespace Omnis
             Mathf.Lerp(fromColor.g, toColor.g, t),
             Mathf.Lerp(fromColor.b, toColor.b, t),
             Mathf.Lerp(fromColor.a, toColor.a, t));
+        #endregion
+
+        #region Change one value in Color
+        /// <returns>(r, g, b, x)</returns>
+        public static Color rgbx(Color c, float x) => new(c.r, c.g, c.b, x);
+        /// <returns>(r, g, b, 0)</returns>
+        public static Color rgbo(Color c) => new(c.r, c.g, c.b, 0f);
         #endregion
     }
 }

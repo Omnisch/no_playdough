@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Omnis.Playdough
 {
@@ -51,7 +50,7 @@ namespace Omnis.Playdough
             GameSettings.EnableCrosshair = false;
             GameSettings.EnablePhantoms = true;
             GameSettings.shapePool.Clear();
-            GameSettings.shapePool.Add(PlaydoughShape.Circle);
+            GameSettings.shapePool.Add(PlaydoughShape.Rectangle);
         }
         #endregion
     }

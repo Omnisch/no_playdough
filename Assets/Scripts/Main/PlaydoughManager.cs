@@ -9,6 +9,8 @@ namespace Omnis.Playdough
         [Header("Input")]
         [SerializeField] private GameObject crosshair;
         [SerializeField] private float sensitivity;
+        [SerializeField] private Vector3 slideInPosition;
+        [SerializeField] private Vector3 slideOutPosition;
         #endregion
 
         #region Fields
@@ -44,7 +46,8 @@ namespace Omnis.Playdough
         private void SpawnPlaydough()
         {
             if (playdough)
-                Destroy(playdough.gameObject);
+                playdough.SlideOutAndDestroy(slideOutPosition);
+
             playdough = Instantiate(playdoughPrefab).GetComponent<Playdough>();
             playdough.Shape = GameSettings.GetRandomShapeFromPool();
             if (GameSettings.RandomScale)
@@ -54,6 +57,7 @@ namespace Omnis.Playdough
             if (GameSettings.RandomRotation)
                 playdough.Rotation = Random.Range(0f, 360f);
             playdough.AspectRatio = Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.25f, 0.5f);
+            playdough.SlideIn(slideInPosition);
         }
 
         private Playdough SpawnPerfectPhantom(Color color)

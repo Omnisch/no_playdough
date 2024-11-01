@@ -5,12 +5,13 @@ namespace Omnis.Playdough
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(LineRenderer))]
-    public class Playdough : MonoBehaviour
+    public partial class Playdough : MonoBehaviour
     {
         #region Serialized Fields
         [SerializeField] private PlaydoughShape shape;
         [SerializeField] private float scale;
         [SerializeField] private float rotation;
+        [SerializeField] private Vector3 position;
         [SerializeField] private float aspectRatio;
         #endregion
 
@@ -48,6 +49,15 @@ namespace Omnis.Playdough
             set
             {
                 rotation = value;
+                CalculateVertices();
+            }
+        }
+        public Vector3 Position
+        {
+            get => position;
+            set
+            {
+                position = value;
                 CalculateVertices();
             }
         }
@@ -92,7 +102,9 @@ namespace Omnis.Playdough
             {
                 var scaled = scale * originalCopy[i];
                 var rotated = Quaternion.AngleAxis(rotation, Vector3.forward) * scaled;
-                vertices[i] = new(rotated.x * Mathf.Exp(AspectRatio), rotated.y * Mathf.Exp(-AspectRatio), rotated.z);
+                var stretched = new Vector3(rotated.x * Mathf.Exp(AspectRatio), rotated.y * Mathf.Exp(-AspectRatio), rotated.z);
+                var translated = stretched + position;
+                vertices[i] = translated;
             }
             UpdateLinePositions();
         }
