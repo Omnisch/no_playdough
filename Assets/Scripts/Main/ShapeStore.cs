@@ -80,6 +80,44 @@ namespace Omnis.Playdough
                     new(1f, 0f, 0f),
                     new(0.5f, 0.866f, 0f),
                 }
+            },
+            {
+                PlaydoughShape.FourPointedStar, new Vector3[]
+                {
+
+                }
+            },
+            {
+                PlaydoughShape.FivePointedStar, new Vector3[]
+                {
+                    new(0f, 1f, 0f),
+                    new(-0.225f, 0.309f, 0f),
+                    new(-0.951f, 0.309f, 0f),
+                    new(-0.363f, -0.118f, 0f),
+                    new(-0.588f, -0.809f, 0f),
+                    new(0f, -0.382f, 0f),
+                    new(0.588f, -0.809f, 0f),
+                    new(0.363f, -0.118f, 0f),
+                    new(0.951f, 0.309f, 0f),
+                    new(0.225f, 0.309f, 0f),
+                }
+            },
+            {
+                PlaydoughShape.SixPointedStar, new Vector3[]
+                {
+                    new(0f, 1f, 0f),
+                    new(-0.289f, 0.5f, 0f),
+                    new(-0.866f, 0.5f, 0f),
+                    new(-0.577f, 0f, 0f),
+                    new(-0.866f, -0.5f, 0f),
+                    new(-0.289f, -0.5f, 0f),
+                    new(0f, -1f, 0f),
+                    new(0.289f, -0.5f, 0f),
+                    new(0.866f, -0.5f, 0f),
+                    new(0.577f, 0f, 0f),
+                    new(0.866f, 0.5f, 0f),
+                    new(0.289f, 0.5f, 0f),
+                }
             }
         };
 
