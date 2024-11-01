@@ -223,6 +223,38 @@ PrefabInstance:
       propertyPath: m_IsOn
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737952762}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleShapeToPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Omnis.Playdough.StartupManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: SixPointedStar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6758931727551321395, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -608,6 +640,38 @@ PrefabInstance:
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_IsOn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737952762}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleShapeToPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Omnis.Playdough.StartupManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: FourPointedStar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6758931727551321395, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_Pivot.x
@@ -2538,6 +2602,38 @@ PrefabInstance:
     - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_IsOn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737952762}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleShapeToPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Omnis.Playdough.StartupManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: FivePointedStar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937872726925435875, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6758931727551321395, guid: 27e2d10f92c07854b8a8cd257fcb4cee, type: 3}
       propertyPath: m_Pivot.x
