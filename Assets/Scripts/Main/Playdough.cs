@@ -77,8 +77,8 @@ namespace Omnis.Playdough
         #endregion
 
         #region Functions
-        [ContextMenu("Create Shape")]
-        private void CreateShapeInEditor()
+        [ContextMenu("Update Shape")]
+        private void InitFromHierarchy()
         {
             Shape = shape;
             Scale = scale;
@@ -103,11 +103,9 @@ namespace Omnis.Playdough
         #region Unity Methods
         private void Awake()
         {
-            scale = 1f;
-            rotation = 0f;
-            aspectRatio = 0f;
             lineRenderer = GetComponent<LineRenderer>();
             lineRenderer.loop = true;
+            InitFromHierarchy();
         }
         #endregion
     }

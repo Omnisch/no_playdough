@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Omnis.Playdough
@@ -66,7 +65,7 @@ namespace Omnis.Playdough
             playdough.CopyTo(phantom);
             phantom.AspectRatio = 0f;
             phantom.Color = color;
-            phantom.AddComponent<TTLMonoBehaviour>().SetLifeTime(0.5f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value);
+            phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(0.5f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value);
             return phantom;
         }
         #endregion

@@ -7,7 +7,7 @@ namespace Omnis.Playdough
     public class StartupManager : MonoBehaviour
     {
         #region Serialized Fields
-        [SerializeField] private Button startButton;
+        [SerializeField] private PlaydoughButton startButton;
         #endregion
 
         #region Interfaces
@@ -34,7 +34,7 @@ namespace Omnis.Playdough
                     GameSettings.shapePool.Remove((PlaydoughShape)result);
                 else
                     GameSettings.shapePool.Add((PlaydoughShape)result);
-                startButton.interactable = !IsShapePoolEmpty();
+                startButton.Interactable = !IsShapePoolEmpty();
             }
         }
         #endregion
@@ -49,7 +49,7 @@ namespace Omnis.Playdough
             GameSettings.RandomScale = false;
             GameSettings.RandomRotation = false;
             GameSettings.EnableCrosshair = false;
-            GameSettings.EnablePhantoms = false;
+            GameSettings.EnablePhantoms = true;
             GameSettings.shapePool.Clear();
             GameSettings.shapePool.Add(PlaydoughShape.Circle);
         }
