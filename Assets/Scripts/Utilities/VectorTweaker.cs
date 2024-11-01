@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Omnis
 {
     /// <summary>
-    /// Auxiliary functions of UnityEngine.Vector2 and UnityEngine.Vector3
+    /// Auxiliary functions of UnityEngine.Vector2 and UnityEngine.Vector3.
     /// </summary>
     public abstract class VectorTweaker
     {
@@ -21,7 +21,7 @@ namespace Omnis
         public static Vector2 rt => new(1f, 1f);
         #endregion
 
-        #region Vector2 to Angle
+        #region Vector2 to angle
         public static float V2ToRadians(Vector2 v2) => Mathf.Atan2(v2.y, v2.x);
         public static float V2ToDegrees(Vector2 v2) => Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
         #endregion
@@ -42,7 +42,7 @@ namespace Omnis
         public static Vector2 yz(Vector3 v3) => new(v3.y, v3.z);
         #endregion
 
-        #region Change One Value in Vector3
+        #region Change one value in Vector3
         /// <returns>(x, y, n)</returns>
         public static Vector3 xyn(Vector3 v, float n) => new(v.x, v.y, n);
         /// <returns>(x1, y1, z2)</returns>
