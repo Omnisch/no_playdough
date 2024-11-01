@@ -9,6 +9,7 @@ namespace Omnis.Playdough
         [Header("Scores")]
         [SerializeField] private Text textCountdown;
         [SerializeField] private GameObject floatScoreTextPrefab;
+        [SerializeField] private StatsPanelInRound statsPanel;
         #endregion
 
         #region Fields
@@ -56,32 +57,36 @@ namespace Omnis.Playdough
 
         private void SettleScore(float endAspectRatio)
         {
-            float score;
+            float solvingTime = Time.realtimeSinceStartup - startTime;
+            float bonusTime;
             Color visualColor;
 
             // Not even close.
             if (Mathf.Abs(endAspectRatio) > Mathf.Abs(startAspectRatio))
             {
-                score = -1f;
+                bonusTime = -1f;
                 visualColor = Color.red;
+                Statistics.missCount++;
             }
             // Too much.
             else if (endAspectRatio * startAspectRatio < 0f)
             {
-                score = 0f;
-                visualColor = Color.gray;
+                bonusTime = 0f;
+                visualColor = Color.red;
+                Statistics.tooMuchCount++;
             }
-            // Not qualified.
+            // Unqualified.
             else if (Mathf.Abs(endAspectRatio) > qualifiedRatioAbs)
             {
-                score = 0f;
-                visualColor = Color.red;
+                bonusTime = 0f;
+                visualColor = Color.gray;
+                Statistics.unqualifiedCount++;
             }
             // Qualified.
             else if (Mathf.Abs(endAspectRatio) > perfectRatioAbs)
             {
                 var rawScore = (qualifiedRatioAbs - Mathf.Abs(endAspectRatio)) / qualifiedRatioAbs;
-                score = GameSettings.difficulty switch
+                bonusTime = GameSettings.difficulty switch
                 {
                     Difficulty.Easy => bonusMult * Mathf.Sqrt(rawScore),
                     Difficulty.Normal => bonusMult * rawScore,
@@ -89,21 +94,25 @@ namespace Omnis.Playdough
                     _ => bonusMult * rawScore,
                 };
                 visualColor = ColorTweaker.LerpFromColorToColor(ColorTweaker.orange, ColorTweaker.chartreuse, rawScore);
+                Statistics.qualifiedCount++;
             }
             // Perfect.
             else
             {
-                score = bonusMult;
+                bonusTime = bonusMult;
                 visualColor = Color.green;
+                Statistics.perfectCount++;
             }
 
             // Settle the score.
-            Countdown += score;
+            Countdown += bonusTime;
+            if (bonusTime > 0f)
+                Statistics.averageTime = (Statistics.averageTime * (Statistics.OneRoundCount - 1) + solvingTime) / Statistics.OneRoundCount;
 
             // Add visual Effects.
             SpawnPerfectPhantom(visualColor);
             var floatScore = Instantiate(floatScoreTextPrefab, textCountdown.transform).GetComponent<FloatScore>();
-            floatScore.Score = score;
+            floatScore.Score = bonusTime;
             floatScore.Color = visualColor;
         }
         #endregion

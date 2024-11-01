@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Omnis.Playdough
@@ -17,6 +18,7 @@ namespace Omnis.Playdough
         private Playdough playdough;
         private Vector2 startPointerPosition;
         private float startAspectRatio;
+        private float startTime;
         #endregion
 
         #region Interfaces
@@ -29,6 +31,7 @@ namespace Omnis.Playdough
                 if (value)
                 {
                     startPointerPosition = InputHandler.PointerPosition;
+                    startTime = Time.realtimeSinceStartup;
                     if (playdough) startAspectRatio = playdough.AspectRatio;
                 }
                 else
@@ -72,15 +75,23 @@ namespace Omnis.Playdough
             phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(0.5f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value);
             return phantom;
         }
+
+        private void GameOver()
+        {
+            Interactable = false;
+            Statistics.AddOneRoundToTotal();
+            statsPanel.ShowPanel();
+        }
         #endregion
 
         #region Unity Methods
         protected override void Start()
         {
             base.Start();
-            Countdown = 10f;
+            Statistics.ResetOneRoundStatistics();
             crosshair.SetActive(GameSettings.EnableCrosshair);
             SetQualifiedScore();
+            Countdown = 10f;
             SpawnPlaydough();
         }
 
@@ -89,11 +100,8 @@ namespace Omnis.Playdough
             if (!Interactable) return;
 
             Countdown -= Time.deltaTime;
-            if (Countdown <= 0f)
-            {
-                Interactable = false;
-                Debug.Log("Game over.");
-            }
+            Statistics.playedTime += Time.deltaTime;
+            if (Countdown <= 0f) GameOver();
 
             if (IsLeftPressed)
             {

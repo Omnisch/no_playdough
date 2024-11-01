@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Omnis.Playdough
 {
-    [CreateAssetMenu(menuName = "Omnis/Game Settings")]
     public class GameSettings : ScriptableObject
     {
         public static bool RandomScale { get; set; }
