@@ -18,6 +18,7 @@ namespace Omnis.Playdough
         private Playdough playdough;
         private float originalAspectRatio;
         private Vector2 startPointerPosition;
+        private bool confirmable;
         #endregion
 
         #region Properties
@@ -44,8 +45,7 @@ namespace Omnis.Playdough
                 }
                 else
                 {
-                    if (AspectRatio * originalAspectRatio >= 0f && AspectRatio < confirmRatio)
-                        callback?.Invoke();
+                    if (confirmable) callback?.Invoke();
                     StartCoroutine(BounceBack());
                 }
             }
@@ -60,19 +60,22 @@ namespace Omnis.Playdough
                 {
                     playdough.AspectRatio = value;
                     playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, Color.red, lerpSpeed);
+                    confirmable = false;
                 }
-                else if (Mathf.Abs(value) < confirmRatio)
+                else if (Mathf.Abs(value) < Mathf.Abs(confirmRatio))
                 {
                     if (IsLeftPressed)
                         playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, lerpSpeed);
                     else
                         playdough.AspectRatio = value;
                     playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, Color.green, lerpSpeed);
+                    confirmable = true;
                 }
                 else
                 {
                     playdough.AspectRatio = value;
                     playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, lerpSpeed);
+                    confirmable = false;
                 }
             }
         }
