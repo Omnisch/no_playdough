@@ -48,9 +48,13 @@ namespace Omnis.Playdough
                 Destroy(playdough.gameObject);
             playdough = Instantiate(playdoughPrefab).GetComponent<Playdough>();
             playdough.Shape = GameSettings.GetRandomShapeFromPool();
-            if (GameSettings.RandomScale) playdough.Scale = Random.Range(1f, 2f);
-            if (GameSettings.RandomRotation) playdough.Rotation = Random.Range(0f, 360f);
-            playdough.AspectRatio = Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.2f, 0.5f);
+            if (GameSettings.RandomScale)
+                playdough.Scale = Random.Range(1f, 2f);
+            else
+                playdough.Scale = 1.5f;
+            if (GameSettings.RandomRotation)
+                playdough.Rotation = Random.Range(0f, 360f);
+            playdough.AspectRatio = Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.25f, 0.5f);
         }
 
         private Playdough SpawnPerfectPhantom(Color color)

@@ -3,20 +3,21 @@ using UnityEngine;
 
 namespace Omnis.Playdough
 {
+    [ExecuteInEditMode]
     [RequireComponent(typeof(LineRenderer))]
     public class Playdough : MonoBehaviour
     {
         #region Serialized Fields
         [SerializeField] private PlaydoughShape shape;
+        [SerializeField] private float scale;
+        [SerializeField] private float rotation;
+        [SerializeField] private float aspectRatio;
         #endregion
 
         #region Fields
         private LineRenderer lineRenderer;
         private List<Vector3> originalCopy;
         private List<Vector3> vertices;
-        private float scale;
-        private float rotation;
-        private float aspectRatio;
         #endregion
 
         #region Interfaces
@@ -76,6 +77,15 @@ namespace Omnis.Playdough
         #endregion
 
         #region Functions
+        [ContextMenu("Create Shape")]
+        private void CreateShapeInEditor()
+        {
+            Shape = shape;
+            Scale = scale;
+            Rotation = rotation;
+            AspectRatio = aspectRatio;
+        }
+
         private void CalculateVertices()
         {
             for (int i = 0; i < vertices.Count; i++)
