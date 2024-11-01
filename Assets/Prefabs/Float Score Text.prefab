@@ -92,6 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8507ec1eb765f4c9983f45a110d80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 0.5
   floatText: {fileID: 8197816213526050591}
-  lifeSpeed: 2
   offset: -80

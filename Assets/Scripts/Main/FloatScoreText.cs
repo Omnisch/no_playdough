@@ -1,15 +1,17 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Omnis.Playdough
 {
-    public class FloatScoreText : MonoBehaviour
+    public class FloatScoreText : TTLMonoBehaviour
     {
         #region Serialized Fields
         [SerializeField] private Text floatText;
-        [SerializeField][Min(0.1f)] private float lifeSpeed = 1f;
         [SerializeField] private float offset;
+        #endregion
+
+        #region Fields
+        private Vector3 rootPosition;
         #endregion
 
         #region Interfaces
@@ -20,20 +22,15 @@ namespace Omnis.Playdough
         #endregion
 
         #region Life Span
-        private void Start() => StartCoroutine(LifeSpan());
-
-        private IEnumerator LifeSpan()
+        protected override void OnStart()
         {
-            var rootPosition = transform.position;
-            float life = 1f;
-            while (life > 0f)
-            {
-                floatText.color = new(floatText.color.r, floatText.color.g, floatText.color.b, life);
-                transform.position = rootPosition + offset * life * Vector3.up;
-                life -= lifeSpeed * Time.deltaTime;
-                yield return 0;
-            }
-            Destroy(gameObject);
+            rootPosition = transform.position;
+            OnLifeSpan = OnFloatScoreTextLifeSpan;
+        }
+        private void OnFloatScoreTextLifeSpan(float value)
+        {
+            floatText.color = new(floatText.color.r, floatText.color.g, floatText.color.b, value);
+            transform.position = rootPosition + offset * value * Vector3.up;
         }
         #endregion
     }

@@ -25,34 +25,27 @@ namespace Omnis.Playdough
                 textCountdown.text = countdown.ToString("F2");
             }
         }
-
-        public void BackToStartScene() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("StartScene");
         #endregion
 
         #region Functions
         private void SettleScore(float endAspectRatio)
         {
             float score;
-            if (endAspectRatio == 0f)
-            {
-                score = 100f;
-                Debug.Log("Perfect! But is it really possible?");
-            }
-            else if (endAspectRatio * startAspectRatio < 0f)
+            if (endAspectRatio * startAspectRatio < 0f)
             {
                 score = 0f;
-                Debug.Log("That's too far.");
+                SpawnPerfectPhantom(Color.yellow);
             }
             else if (Mathf.Abs(endAspectRatio) > Mathf.Abs(startAspectRatio))
             {
                 score = -5f;
-                Debug.Log("Are you serious?");
+                SpawnPerfectPhantom(Color.red);
             }
             else
             {
                 score = Mathf.Lerp(0f, 1f, Mathf.Abs(startAspectRatio - endAspectRatio));
-                score = score * score * GameManager.Instance.bonusMult;
-                Debug.Log("Good.");
+                score = score * score * GameSettings.bonusMult;
+                SpawnPerfectPhantom(Color.green);
             }
             Countdown += score;
             Instantiate(floatScoreTextPrefab, textCountdown.transform).GetComponent<FloatScoreText>().Score = score;

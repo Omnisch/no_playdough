@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Omnis.Playdough
@@ -59,6 +58,20 @@ namespace Omnis.Playdough
                 aspectRatio = Mathf.Clamp(value, -1f, 1f);
                 CalculateVertices();
             }
+        }
+        public Color Color
+        {
+            get => lineRenderer.startColor;
+            set => lineRenderer.startColor = lineRenderer.endColor = value;
+        }
+
+        public void CopyTo(Playdough copy)
+        {
+            copy.Shape = Shape;
+            copy.Scale = Scale;
+            copy.Rotation = Rotation;
+            copy.AspectRatio = AspectRatio;
+            copy.Color = Color;
         }
         #endregion
 

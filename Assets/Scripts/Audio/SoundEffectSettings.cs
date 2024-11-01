@@ -6,7 +6,7 @@ namespace Omnis
     [CreateAssetMenu(menuName = "Omnis/Sound Effect Settings")]
     public class SoundEffectSettings : ScriptableObject
     {
-        public List<SoundEffectId> soundEffects;
+        public static List<SoundEffectId> soundEffects;
     }
 
     [System.Serializable]

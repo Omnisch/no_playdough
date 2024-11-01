@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Omnis.Playdough
@@ -36,6 +37,8 @@ namespace Omnis.Playdough
                 }
             }
         }
+
+        public void BackToStartScene() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("StartScene");
         #endregion
 
         #region Functions
@@ -44,10 +47,23 @@ namespace Omnis.Playdough
             if (playdough)
                 Destroy(playdough.gameObject);
             playdough = Instantiate(playdoughPrefab).GetComponent<Playdough>();
-            playdough.Shape = GameManager.Instance.GetRandomShapeFromPool();
-            if (GameManager.Instance.RandomScale) playdough.Scale = Random.Range(1f, 2f);
-            if (GameManager.Instance.RandomRotation) playdough.Rotation = Random.Range(0f, 360f);
+            playdough.Shape = GameSettings.GetRandomShapeFromPool();
+            if (GameSettings.RandomScale) playdough.Scale = Random.Range(1f, 2f);
+            if (GameSettings.RandomRotation) playdough.Rotation = Random.Range(0f, 360f);
             playdough.AspectRatio = Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.2f, 0.5f);
+        }
+
+        private Playdough SpawnPerfectPhantom(Color color)
+        {
+            if (!GameSettings.EnablePhantoms) return null;
+            if (!playdough) return null;
+
+            var phantom = Instantiate(playdoughPrefab).GetComponent<Playdough>();
+            playdough.CopyTo(phantom);
+            phantom.AspectRatio = 0f;
+            phantom.Color = color;
+            phantom.AddComponent<TTLMonoBehaviour>().SetLifeTime(0.5f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value);
+            return phantom;
         }
         #endregion
 
@@ -56,7 +72,7 @@ namespace Omnis.Playdough
         {
             base.Start();
             Countdown = 10f;
-            crosshair.SetActive(GameManager.Instance.EnableCrosshair);
+            crosshair.SetActive(GameSettings.EnableCrosshair);
             SpawnPlaydough();
         }
 

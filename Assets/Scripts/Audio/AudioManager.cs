@@ -20,7 +20,7 @@ namespace Omnis
         public void PlaySE(SoundEffectName seName)
         {
             if (!Mute)
-                source.PlayOneShot(Playdough.GameManager.Instance.SeSettings.soundEffects.Find(se => se.name == seName).se);
+                source.PlayOneShot(SoundEffectSettings.soundEffects.Find(se => se.name == seName).se);
         }
         #endregion
 
