@@ -6,7 +6,8 @@ namespace Omnis.Playdough
     public class StartupManager : MonoBehaviour
     {
         #region Serialized Fields
-        [SerializeField] private PlaydoughButton startButton;
+        [SerializeField] private PlaydoughButton countdownButton;
+        [SerializeField] private PlaydoughButton stackButton;
         #endregion
 
         #region Interfaces
@@ -33,7 +34,7 @@ namespace Omnis.Playdough
                     GameSettings.shapePool.Remove((PlaydoughShape)result);
                 else
                     GameSettings.shapePool.Add((PlaydoughShape)result);
-                startButton.Interactable = !IsShapePoolEmpty();
+                countdownButton.Interactable = !IsShapePoolEmpty();
             }
         }
         #endregion

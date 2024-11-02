@@ -108,11 +108,10 @@ namespace Omnis.Playdough
 
             // Settle the score.
             Countdown += bonusTime;
-            if (bonusTime > 0f)
-                Statistics.averageTime = (Statistics.averageTime * (Statistics.OneRoundCount - 1) + solvingTime) / Statistics.OneRoundCount;
+            Statistics.averageTime = (Statistics.averageTime * (Statistics.OneRoundCount - 1) + solvingTime) / Statistics.OneRoundCount;
 
             // Add visual Effects.
-            SpawnPerfectPhantom(visualColor);
+            SpawnPhantom(visualColor);
             var floatScore = Instantiate(floatScoreTextPrefab, textCountdown.transform).GetComponent<FloatScore>();
             floatScore.Score = bonusTime;
             floatScore.Color = visualColor;

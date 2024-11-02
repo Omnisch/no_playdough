@@ -5,6 +5,8 @@ namespace Omnis.Playdough
 {
     public class GameSettings : ScriptableObject
     {
+        public static float mouseSensitivity = 2f;
+        public static float lerpMult = 0.05f;
         public static bool RandomScale { get; set; }
         public static bool RandomRotation { get; set; }
         public static bool EnableCrosshair { get; set; }

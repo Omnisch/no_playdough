@@ -8,7 +8,6 @@ namespace Omnis.Playdough
         [SerializeField] private GameObject playdoughPrefab;
         [Header("Input")]
         [SerializeField] private GameObject crosshair;
-        [SerializeField] private float sensitivity;
         [SerializeField] private Vector3 slideInPosition;
         [SerializeField] private Vector3 slideOutPosition;
         #endregion
@@ -66,14 +65,13 @@ namespace Omnis.Playdough
             playdough.SlideIn(slideInPosition);
         }
 
-        private Playdough SpawnPerfectPhantom(Color color)
+        private Playdough SpawnPhantom(Color color)
         {
             if (!GameSettings.EnablePhantoms) return null;
             if (!playdough) return null;
 
             var phantom = Instantiate(playdoughPrefab).GetComponent<Playdough>();
             playdough.CopyTo(phantom);
-            phantom.AspectRatio = 0f;
             phantom.Color = color;
             phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(3f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value / 2f);
             return phantom;
@@ -108,7 +106,7 @@ namespace Omnis.Playdough
 
             if (IsLeftPressed)
             {
-                playdough.AspectRatio = startAspectRatio + 0.001f * sensitivity * (
+                playdough.AspectRatio = startAspectRatio + 0.001f * GameSettings.mouseSensitivity * (
                     direction.x * (InputHandler.PointerPosition.x - startPointerPos.x) +
                     direction.y * (InputHandler.PointerPosition.y - startPointerPos.y));
             }

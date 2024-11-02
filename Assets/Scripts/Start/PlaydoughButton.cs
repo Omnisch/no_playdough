@@ -8,8 +8,6 @@ namespace Omnis.Playdough
     public class PlaydoughButton : InteractBase
     {
         #region Serialized Fields
-        [SerializeField] private float sensitivity = 2f;
-        [SerializeField] private float lerpSpeed = 0.05f;
         [SerializeField] private float confirmRatio = 0.05f;
         [SerializeField] private UnityEvent callback;
         #endregion
@@ -72,16 +70,16 @@ namespace Omnis.Playdough
                 if (Mathf.Abs(value) < Mathf.Abs(confirmRatio))
                 {
                     if (IsLeftPressed)
-                        playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, lerpSpeed);
+                        playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, GameSettings.lerpMult);
                     else
                         playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.chartreuse, lerpSpeed);
+                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.chartreuse, GameSettings.lerpMult);
                     confirming = true;
                 }
                 else
                 {
                     playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, lerpSpeed);
+                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, GameSettings.lerpMult);
                     confirming = false;
                 }
             }
@@ -114,7 +112,7 @@ namespace Omnis.Playdough
 
             if (IsLeftPressed)
             {
-                AspectRatio = originalAspectRatio + 0.001f * sensitivity * (
+                AspectRatio = originalAspectRatio + 0.001f * GameSettings.mouseSensitivity * (
                     direction.x * (InputHandler.PointerPosition.x - startPointerPos.x) +
                     direction.y * (InputHandler.PointerPosition.y - startPointerPos.y));
             }

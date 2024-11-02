@@ -1405,7 +1405,7 @@ GameObject:
   - component: {fileID: 1139128575}
   - component: {fileID: 1139128574}
   m_Layer: 0
-  m_Name: Playdough Manager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

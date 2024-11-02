@@ -21,8 +21,8 @@ namespace Omnis.Playdough
             Color = ColorTweaker.rgbx(Color, 0f);
             while (Position.sqrMagnitude > 0.01f)
             {
-                Position = Vector3.Lerp(Position, Vector3.zero, lerpSpeed);
-                Color = ColorTweaker.LerpFromColorToColor(Color, ColorTweaker.rgbx(Color, 1f), lerpSpeed);
+                Position = Vector3.Lerp(Position, Vector3.zero, lerpSpeed * GameSettings.lerpMult);
+                Color = ColorTweaker.LerpFromColorToColor(Color, ColorTweaker.rgbx(Color, 1f), lerpSpeed * GameSettings.lerpMult);
                 yield return 0;
             }
             Position = Vector3.zero;
