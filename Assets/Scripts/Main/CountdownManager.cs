@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Omnis.Playdough
 {
-    public partial class PlaydoughManager : InteractBase
+    public partial class CountdownManager : InteractBase
     {
         #region Serialized Fields
         [SerializeField] private GameObject playdoughPrefab;

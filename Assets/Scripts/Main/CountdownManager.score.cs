@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Omnis.Playdough
 {
-    public partial class PlaydoughManager
+    public partial class CountdownManager
     {
         #region Serialized Fields
         [Header("Scores")]
