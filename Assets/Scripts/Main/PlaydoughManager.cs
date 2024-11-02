@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Omnis.Playdough
@@ -16,7 +15,8 @@ namespace Omnis.Playdough
 
         #region Fields
         private Playdough playdough;
-        private Vector2 startPointerPosition;
+        private Vector2 startPointerPos;
+        private Vector2 direction;
         private float startAspectRatio;
         private float startTime;
         #endregion
@@ -30,7 +30,10 @@ namespace Omnis.Playdough
                 base.IsLeftPressed = value;
                 if (value)
                 {
-                    startPointerPosition = InputHandler.PointerPosition;
+                    startPointerPos = InputHandler.PointerPosition;
+                    direction = new(
+                        +Mathf.Sign(startPointerPos.x - Camera.main.WorldToScreenPoint(playdough.transform.position).x),
+                        -Mathf.Sign(startPointerPos.y - Camera.main.WorldToScreenPoint(playdough.transform.position).y));
                     startTime = Time.realtimeSinceStartup;
                     if (playdough) startAspectRatio = playdough.AspectRatio;
                 }
@@ -42,7 +45,7 @@ namespace Omnis.Playdough
             }
         }
 
-        public void BackToStartScene() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("StartScene");
+        public void BackToMenu() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Menu");
         #endregion
 
         #region Functions
@@ -72,7 +75,7 @@ namespace Omnis.Playdough
             playdough.CopyTo(phantom);
             phantom.AspectRatio = 0f;
             phantom.Color = color;
-            phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(0.5f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value);
+            phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(3f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value / 2f);
             return phantom;
         }
 
@@ -105,9 +108,9 @@ namespace Omnis.Playdough
 
             if (IsLeftPressed)
             {
-                playdough.AspectRatio = startAspectRatio
-                    + Mathf.Sign(startPointerPosition.x - Screen.width / 2) * (0.001f * sensitivity) * (InputHandler.PointerPosition.x - startPointerPosition.x)
-                    + Mathf.Sign(Screen.height / 2 - startPointerPosition.y) * (0.001f * sensitivity) * (InputHandler.PointerPosition.y - startPointerPosition.y);
+                playdough.AspectRatio = startAspectRatio + 0.001f * sensitivity * (
+                    direction.x * (InputHandler.PointerPosition.x - startPointerPos.x) +
+                    direction.y * (InputHandler.PointerPosition.y - startPointerPos.y));
             }
         }
         #endregion

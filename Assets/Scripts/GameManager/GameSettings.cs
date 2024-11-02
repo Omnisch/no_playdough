@@ -16,6 +16,12 @@ namespace Omnis.Playdough
         public static PlaydoughShape GetRandomShapeFromPool() => shapePool[Random.Range(0, shapePool.Count)];
     }
 
+    public enum GameMode
+    {
+        Countdown,
+        Stack,
+    }
+
     public enum Difficulty
     {
         Default,

@@ -24,7 +24,7 @@ namespace Omnis.Playdough
             }
         }
 
-        public void StartGame() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainScene");
+        public void PlayCountdownMode() => UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Countdown Mode");
         public void ToggleShapeToPool(string shapeName)
         {
             if (Enum.TryParse(typeof(PlaydoughShape), shapeName, out var result))

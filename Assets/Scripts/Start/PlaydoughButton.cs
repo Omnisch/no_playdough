@@ -8,17 +8,18 @@ namespace Omnis.Playdough
     public class PlaydoughButton : InteractBase
     {
         #region Serialized Fields
-        [SerializeField] private float sensitivity;
-        [SerializeField] private float lerpSpeed = 0.02f;
-        [SerializeField] private float confirmRatio = 0.1f;
+        [SerializeField] private float sensitivity = 2f;
+        [SerializeField] private float lerpSpeed = 0.05f;
+        [SerializeField] private float confirmRatio = 0.05f;
         [SerializeField] private UnityEvent callback;
         #endregion
 
         #region Fields
         private Playdough playdough;
         private float originalAspectRatio;
-        private Vector2 startPointerPosition;
-        private bool confirmable;
+        private Vector2 startPointerPos;
+        private Vector2 direction;
+        private bool confirming;
         #endregion
 
         #region Properties
@@ -32,6 +33,15 @@ namespace Omnis.Playdough
                 else playdough.Color = Color.gray;
             }
         }
+        public override bool IsPointed
+        {
+            get => base.IsPointed;
+            set
+            {
+                base.IsPointed = value;
+                if (!value && IsLeftPressed) IsLeftPressed = false;
+            }
+        }
         public override bool IsLeftPressed
         {
             get => base.IsLeftPressed;
@@ -41,11 +51,14 @@ namespace Omnis.Playdough
                 StopAllCoroutines();
                 if (value)
                 {
-                    startPointerPosition = InputHandler.PointerPosition;
+                    startPointerPos = InputHandler.PointerPosition;
+                    direction = new(
+                        +Mathf.Sign(startPointerPos.x - Camera.main.WorldToScreenPoint(transform.position).x),
+                        -Mathf.Sign(startPointerPos.y - Camera.main.WorldToScreenPoint(transform.position).y));
                 }
                 else
                 {
-                    if (confirmable) callback?.Invoke();
+                    if (confirming) callback?.Invoke();
                     StartCoroutine(BounceBack());
                 }
             }
@@ -63,13 +76,13 @@ namespace Omnis.Playdough
                     else
                         playdough.AspectRatio = value;
                     playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.chartreuse, lerpSpeed);
-                    confirmable = true;
+                    confirming = true;
                 }
                 else
                 {
                     playdough.AspectRatio = value;
                     playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, lerpSpeed);
-                    confirmable = false;
+                    confirming = false;
                 }
             }
         }
@@ -101,9 +114,9 @@ namespace Omnis.Playdough
 
             if (IsLeftPressed)
             {
-                AspectRatio = originalAspectRatio
-                    + Mathf.Sign(startPointerPosition.x - Screen.width / 2) * (0.001f * sensitivity) * (InputHandler.PointerPosition.x - startPointerPosition.x)
-                    + Mathf.Sign(Screen.height / 2 - startPointerPosition.y) * (0.001f * sensitivity) * (InputHandler.PointerPosition.y - startPointerPosition.y);
+                AspectRatio = originalAspectRatio + 0.001f * sensitivity * (
+                    direction.x * (InputHandler.PointerPosition.x - startPointerPos.x) +
+                    direction.y * (InputHandler.PointerPosition.y - startPointerPos.y));
             }
             #endregion
         }

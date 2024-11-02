@@ -229,7 +229,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 737952762}
         m_TargetAssemblyTypeName: Omnis.Playdough.StartupManager, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: PlayCountdownMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -258,7 +258,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20, y: 6, z: 1}
+  m_Size: {x: 20, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &114535978
 PrefabInstance:
@@ -1945,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5513768340467951425, guid: b81ccdeb89ff4d04f9bb6656665e8772, type: 3}
       propertyPath: m_Name
-      value: Start Playdough
+      value: Countdown Entry
       objectReference: {fileID: 0}
     - target: {fileID: 7323225225352063056, guid: b81ccdeb89ff4d04f9bb6656665e8772, type: 3}
       propertyPath: m_Positions.Array.size

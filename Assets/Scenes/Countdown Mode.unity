@@ -2256,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5169194603690485843, guid: 84a022ea34cc17441b0430f14d978fcb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: BackToStartScene
+      value: BackToMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5169194603690485843, guid: 84a022ea34cc17441b0430f14d978fcb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
