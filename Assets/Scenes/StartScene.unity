@@ -222,8 +222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opaque: 0
   sensitivity: 2
-  lerpSpeed: 0.02
-  confirmRatio: 0.1
+  lerpSpeed: 0.05
+  confirmRatio: 0.05
   callback:
     m_PersistentCalls:
       m_Calls:

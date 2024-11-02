@@ -56,19 +56,13 @@ namespace Omnis.Playdough
             get => playdough.AspectRatio;
             set
             {
-                if (value * originalAspectRatio < 0f)
-                {
-                    playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, Color.red, lerpSpeed);
-                    confirmable = false;
-                }
-                else if (Mathf.Abs(value) < Mathf.Abs(confirmRatio))
+                if (Mathf.Abs(value) < Mathf.Abs(confirmRatio))
                 {
                     if (IsLeftPressed)
                         playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, lerpSpeed);
                     else
                         playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, Color.green, lerpSpeed);
+                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.chartreuse, lerpSpeed);
                     confirmable = true;
                 }
                 else
