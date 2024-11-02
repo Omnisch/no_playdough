@@ -14,8 +14,10 @@ namespace Omnis.Playdough
 
         #region Fields
         private float countdown;
-        private float qualifiedRatioAbs;
-        private float perfectRatioAbs;
+        /// <summary>Qualified line (Absolute).</summary>
+        private float Q;
+        /// <summary>Perfect line (Absolute).</summary>
+        private float P;
         private float bonusMult;
         #endregion
 
@@ -37,20 +39,20 @@ namespace Omnis.Playdough
             switch (GameSettings.difficulty)
             {
                 case Difficulty.Easy:
-                    qualifiedRatioAbs = 0.15f;
-                    perfectRatioAbs = 0.05f;
-                    bonusMult = 1.5f;
+                    Q = 0.06f;
+                    P = 0.02f;
+                    bonusMult = 1.2f;
                     break;
                 default:
                 case Difficulty.Normal:
-                    qualifiedRatioAbs = 0.125f;
-                    perfectRatioAbs = 0.02f;
+                    Q = 0.03f;
+                    P = 0.01f;
                     bonusMult = 1f;
                     break;
                 case Difficulty.Hard:
-                    qualifiedRatioAbs = 0.12f;
-                    perfectRatioAbs = 0.01f;
-                    bonusMult = 0.75f;
+                    Q = 0.01f;
+                    P = 0.005f;
+                    bonusMult = 0.8f;
                     break;
             }
         }
@@ -61,31 +63,17 @@ namespace Omnis.Playdough
             float bonusTime;
             Color visualColor;
 
-            // Not even close.
-            if (Mathf.Abs(endAspectRatio) > Mathf.Abs(startAspectRatio))
+            // Perfect.
+            if (Mathf.Abs(endAspectRatio) < P)
             {
-                bonusTime = -1f;
-                visualColor = Color.red;
-                Statistics.missCount++;
-            }
-            // Too much.
-            else if (endAspectRatio * startAspectRatio < 0f)
-            {
-                bonusTime = 0f;
-                visualColor = Color.red;
-                Statistics.tooMuchCount++;
-            }
-            // Unqualified.
-            else if (Mathf.Abs(endAspectRatio) > qualifiedRatioAbs)
-            {
-                bonusTime = 0f;
-                visualColor = Color.gray;
-                Statistics.unqualifiedCount++;
+                bonusTime = bonusMult;
+                visualColor = Color.green;
+                Statistics.perfectCount++;
             }
             // Qualified.
-            else if (Mathf.Abs(endAspectRatio) > perfectRatioAbs)
+            else if (Mathf.Abs(endAspectRatio) < Q)
             {
-                var rawScore = (qualifiedRatioAbs - Mathf.Abs(endAspectRatio)) / qualifiedRatioAbs;
+                var rawScore = (Q - Mathf.Abs(endAspectRatio)) / Q;
                 bonusTime = GameSettings.difficulty switch
                 {
                     Difficulty.Easy => bonusMult * Mathf.Sqrt(rawScore),
@@ -93,15 +81,29 @@ namespace Omnis.Playdough
                     Difficulty.Hard => bonusMult * rawScore,
                     _ => bonusMult * rawScore,
                 };
-                visualColor = ColorTweaker.LerpFromColorToColor(ColorTweaker.orange, ColorTweaker.chartreuse, rawScore);
+                visualColor = ColorTweaker.LerpFromColorToColor(ColorTweaker.orange, Color.green, rawScore);
                 Statistics.qualifiedCount++;
             }
-            // Perfect.
+            // Too much.
+            else if (endAspectRatio * startAspectRatio < 0f)
+            {
+                bonusTime = -1f;
+                visualColor = Color.red;
+                Statistics.tooMuchCount++;
+            }
+            // Unqualified.
+            else if (Mathf.Abs(endAspectRatio) < Mathf.Abs(startAspectRatio))
+            {
+                bonusTime = 0f;
+                visualColor = ColorTweaker.amber;
+                Statistics.unqualifiedCount++;
+            }
+            // Miss.
             else
             {
-                bonusTime = bonusMult;
-                visualColor = Color.green;
-                Statistics.perfectCount++;
+                bonusTime = -1f;
+                visualColor = Color.gray;
+                Statistics.missCount++;
             }
 
             // Settle the score.
