@@ -17,7 +17,6 @@ namespace Omnis.Playdough
         private float originalAspectRatio;
         private Vector2 startPointerPos;
         private Vector2 direction;
-        private bool confirming;
         #endregion
 
         #region Properties
@@ -56,7 +55,7 @@ namespace Omnis.Playdough
                 }
                 else
                 {
-                    if (confirming) callback?.Invoke();
+                    if (Confirmed) callback?.Invoke();
                     StartCoroutine(BounceBack());
                 }
             }
@@ -70,31 +69,29 @@ namespace Omnis.Playdough
                 if (Mathf.Abs(value) < Mathf.Abs(confirmRatio))
                 {
                     if (IsLeftPressed)
-                        playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, GameSettings.lerpMult);
+                        playdough.AspectRatio = Mathf.Lerp(playdough.AspectRatio, 0f, GameSettings.lerpMult * Time.deltaTime);
                     else
                         playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.chartreuse, GameSettings.lerpMult);
-                    confirming = true;
+                    playdough.Color = ColorTweaker.Lerp(playdough.Color, ColorTweaker.chartreuse, GameSettings.lerpMult * Time.deltaTime);
                 }
                 else
                 {
                     playdough.AspectRatio = value;
-                    playdough.Color = ColorTweaker.LerpFromColorToColor(playdough.Color, ColorTweaker.appleBlack, GameSettings.lerpMult);
-                    confirming = false;
+                    playdough.Color = ColorTweaker.Lerp(playdough.Color, ColorTweaker.appleBlack, GameSettings.lerpMult * Time.deltaTime);
                 }
             }
         }
+        private bool Confirmed => Mathf.Abs(AspectRatio) < Mathf.Abs(confirmRatio);
         #endregion
 
         #region Functions
         private IEnumerator BounceBack()
         {
-            while (Mathf.Abs(AspectRatio - originalAspectRatio) > Mathf.Epsilon)
+            var fromAspectRatio = AspectRatio;
+            yield return YieldTweaker.Lerp((value) =>
             {
-                AspectRatio = Mathf.Lerp(AspectRatio, originalAspectRatio, 10f * Time.deltaTime);
-                yield return 0;
-            }
-            AspectRatio = originalAspectRatio;
+                AspectRatio = Mathf.Lerp(fromAspectRatio, originalAspectRatio, value);
+            }, GameSettings.lerpMult);
         }
         #endregion
 

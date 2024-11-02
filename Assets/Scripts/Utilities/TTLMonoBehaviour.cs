@@ -1,5 +1,5 @@
 // author: Omnistudio
-// version: 2024.11.01
+// version: 2024.11.02
 
 using System.Collections;
 using UnityEngine;
@@ -8,16 +8,23 @@ using UnityEngine.Events;
 namespace Omnis
 {
     /// <summary>
-    /// After Start(), live <i>lifeTime</i> and then destroy gameObject.<br />
+    /// After Start(), live <i>lifeTime</i> seconds and then destroy gameObject.<br />
     /// Use <i>OnLifeSpan</i> to set callbacks.
     /// </summary>
     public class TTLMonoBehaviour : MonoBehaviour
     {
-        #region Serialized Fields
         [SerializeField] private float lifeTime = 1f;
-        #endregion
+        public TTLMonoBehaviour SetLifeTime(float value)
+        {
+            lifeTime = value;
+            return this;
+        }
 
-        #region Fields
+        /// <summary>
+        /// The float value would be 0 at the start, 1 at the end.
+        /// </summary>
+        public UnityAction<float> OnLifeSpan {  private get; set; }
+
         private float life;
         private float Life
         {
@@ -25,28 +32,16 @@ namespace Omnis
             set
             {
                 life = Mathf.Clamp01(value);
-                OnLifeSpan.Invoke(value);
+                OnLifeSpan?.Invoke(value);
             }
         }
-        #endregion
 
-        #region Interfaces
-        public TTLMonoBehaviour SetLifeTime(float value)
-        {
-            lifeTime = value;
-            return this;
-        }
-        /// <summary>
-        /// The float value would be 1 at the start, 0 at the end.
-        /// </summary>
-        public UnityAction<float> OnLifeSpan {  private get; set; }
-        #endregion
 
         #region Life Span
         protected virtual void OnStart() { }
         private void Start()
         {
-            life = 1f;
+            Life = 0f;
             OnStart();
             StartCoroutine(LifeSpan());
         }
@@ -54,9 +49,9 @@ namespace Omnis
         private IEnumerator LifeSpan()
         {
             var lifeTimeFixed = lifeTime;
-            while (Life > 0f)
+            while (Life < 1f)
             {
-                Life -= Time.deltaTime / lifeTimeFixed;
+                Life += Time.deltaTime / lifeTimeFixed;
                 yield return 0;
             }
             Destroy(gameObject);

@@ -81,7 +81,7 @@ namespace Omnis.Playdough
                     Difficulty.Hard => bonusMult * rawScore,
                     _ => bonusMult * rawScore,
                 };
-                visualColor = ColorTweaker.LerpFromColorToColor(ColorTweaker.orange, Color.green, rawScore);
+                visualColor = ColorTweaker.Lerp(ColorTweaker.orange, Color.green, rawScore);
                 Statistics.qualifiedCount++;
             }
             // Too much.

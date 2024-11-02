@@ -1,5 +1,5 @@
 // author: Omnistudio
-// version: 2024.11.01
+// version: 2024.11.02
 
 using UnityEngine;
 
@@ -69,7 +69,7 @@ namespace Omnis
         #endregion
 
         #region Color Lerp
-        public static Color LerpFromColorToColor(Color fromColor, Color toColor, float t) => new(
+        public static Color Lerp(Color fromColor, Color toColor, float t) => new(
             Mathf.Lerp(fromColor.r, toColor.r, t),
             Mathf.Lerp(fromColor.g, toColor.g, t),
             Mathf.Lerp(fromColor.b, toColor.b, t),

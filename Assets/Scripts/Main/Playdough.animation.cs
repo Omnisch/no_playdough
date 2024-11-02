@@ -5,57 +5,48 @@ namespace Omnis.Playdough
 {
     public partial class Playdough
     {
-        #region Serialized fields
-        [SerializeField] private float lerpSpeed;
-        #endregion
-
         #region Functions
-        public void SlideIn(Vector3 fromPosition)
+        private IEnumerator ISlide(Vector3 fromPos, Vector3 toPos, SlideMode slideMode)
         {
-            StopAllCoroutines();
-            StartCoroutine(ISlideIn(fromPosition));
-        }
-        private IEnumerator ISlideIn(Vector3 fromPosition)
-        {
-            Position = fromPosition;
-            Color = ColorTweaker.rgbx(Color, 0f);
-            while (Position.sqrMagnitude > 0.01f)
+            yield return YieldTweaker.Lerp((value) =>
             {
-                Position = Vector3.Lerp(Position, Vector3.zero, lerpSpeed * GameSettings.lerpMult);
-                Color = ColorTweaker.LerpFromColorToColor(Color, ColorTweaker.rgbx(Color, 1f), lerpSpeed * GameSettings.lerpMult);
-                yield return 0;
-            }
-            Position = Vector3.zero;
-            Color = ColorTweaker.rgbx(Color, 1f);
+                transform.position = Vector3.Lerp(fromPos, toPos, value);
+                Color = ColorTweaker.Lerp(
+                    ColorTweaker.rgbx(Color, slideMode switch
+                    {
+                        SlideMode.Appear => 0f,
+                        SlideMode.Fade => 1f,
+                        _ => Color.a,
+                    }),
+                    ColorTweaker.rgbx(Color, slideMode switch
+                    {
+                        SlideMode.Appear => 1f,
+                        SlideMode.Fade => 0f,
+                        _ => Color.a,
+                    }), value);
+            }, GameSettings.lerpMult);
         }
 
-        public void SlideOut(Vector3 toPosition)
+        public void SlideIn(Vector3 fromPos, Vector3 toPos)
         {
             StopAllCoroutines();
-            StartCoroutine(ISlideOut(toPosition));
+            StartCoroutine(ISlide(fromPos, toPos, SlideMode.Appear));
         }
-        private IEnumerator ISlideOut(Vector3 toPosition)
-        {
-            while ((toPosition - Position).sqrMagnitude > 0.01f)
-            {
-                Position = Vector3.Lerp(Position, toPosition, lerpSpeed);
-                Color = ColorTweaker.LerpFromColorToColor(Color, ColorTweaker.rgbx(Color, 0f), lerpSpeed);
-                yield return 0;
-            }
-            Position = toPosition;
-            Color = ColorTweaker.rgbx(Color, 0f);
-        }
-
-        public void SlideOutAndDestroy(Vector3 toPosition)
+        public void SlideOut(Vector3 fromPos, Vector3 toPos, bool destroy = false)
         {
             StopAllCoroutines();
-            StartCoroutine(ISlideOutAndDestroy(toPosition));
+            if (destroy)
+                StartCoroutine(ISlideOutAndDestroy(fromPos, toPos));
+            else
+                StartCoroutine(ISlide(fromPos, toPos, SlideMode.Fade));
         }
-        private IEnumerator ISlideOutAndDestroy(Vector3 toPosition)
+        private IEnumerator ISlideOutAndDestroy(Vector3 fromPos, Vector3 toPos)
         {
-            yield return ISlideOut(toPosition);
+            yield return ISlide(fromPos, toPos, SlideMode.Fade);
             Destroy(gameObject);
         }
         #endregion
+
+        public enum SlideMode { Opaque, Appear, Fade, };
     }
 }

@@ -33,8 +33,8 @@ namespace Omnis.Playdough
         }
         private void OnFloatScoreTextLifeSpan(float value)
         {
-            floatText.color = new(floatText.color.r, floatText.color.g, floatText.color.b, value);
-            transform.position = rootPosition + offset * value * Vector3.up;
+            floatText.color = new(floatText.color.r, floatText.color.g, floatText.color.b, 1f - value);
+            transform.position = rootPosition + offset * (1f - value) * Vector3.up;
         }
         #endregion
     }

@@ -51,7 +51,7 @@ namespace Omnis.Playdough
         private void SpawnPlaydough()
         {
             if (playdough)
-                playdough.SlideOutAndDestroy(slideOutPosition);
+                playdough.SlideOut(Vector3.zero, slideOutPosition, destroy: true);
 
             playdough = Instantiate(playdoughPrefab).GetComponent<Playdough>();
             playdough.Shape = GameSettings.GetRandomShapeFromPool();
@@ -62,7 +62,7 @@ namespace Omnis.Playdough
             if (GameSettings.RandomRotation)
                 playdough.Rotation = Random.Range(0f, 360f);
             playdough.AspectRatio = Mathf.Sign(Random.Range(-1f, 1f)) * Random.Range(0.25f, 0.5f);
-            playdough.SlideIn(slideInPosition);
+            playdough.SlideIn(slideInPosition, Vector3.zero);
         }
 
         private Playdough SpawnPhantom(Color color)
@@ -73,7 +73,10 @@ namespace Omnis.Playdough
             var phantom = Instantiate(playdoughPrefab).GetComponent<Playdough>();
             playdough.CopyTo(phantom);
             phantom.Color = color;
-            phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(3f).OnLifeSpan = (value) => phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, value / 2f);
+            phantom.gameObject.AddComponent<TTLMonoBehaviour>().SetLifeTime(3f).OnLifeSpan = (value) =>
+            {
+                phantom.Color = new(phantom.Color.r, phantom.Color.g, phantom.Color.b, (1f - value) / 2f);
+            };
             return phantom;
         }
 
