@@ -169,6 +169,17 @@
                 },
                 {
                     "name": "",
+                    "id": "285151f3-dce9-498a-9312-6f0c68d78488",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9d057601-2415-417a-9cb0-f8535f6b0743",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press(behavior=1)",
@@ -180,11 +191,33 @@
                 },
                 {
                     "name": "",
+                    "id": "f8abbb0b-a4a6-4976-b5de-f17a78a8e23d",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "LeftRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "738c76bf-9ffa-4a1f-9011-e2010cfb73ba",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "PC",
+                    "action": "LeftPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a769eb68-3702-4683-967a-f656a5f5772f",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Android",
                     "action": "LeftPress",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -315,6 +348,17 @@
                 {
                     "devicePath": "<Mouse>",
                     "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Android",
+            "bindingGroup": "Android",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
